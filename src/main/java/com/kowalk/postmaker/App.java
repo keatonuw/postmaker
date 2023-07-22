@@ -25,7 +25,7 @@ public class App {
 
         DbService db = new DbService(username, password, url);
 
-        String post = PostFileReader.read("./testfile.md");
+        String post = PostFileReader.read(filename);
 
         PostModel model = PostModel.parse(post);
         if (model.spellCheck()) {

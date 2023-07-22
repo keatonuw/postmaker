@@ -30,12 +30,11 @@ public class DbService {
     }
 
     public void insertPost(PostModel model) {
-        String query = "INSERT INTO articles(title, subtitle, summary, contents, posted) VALUES(?, ?, ?, ?, ?)";
+        String query = "INSERT INTO articles(id, title, subtitle, summary, contents, posted) VALUES(nextval('idseq'), ?, ?, ?, ?, ?)";
 
         try (
-            Connection connection = DriverManager.getConnection(url, props);
-            PreparedStatement pstmt = connection.prepareStatement(query);
-        ) {
+                Connection connection = DriverManager.getConnection(url, props);
+                PreparedStatement pstmt = connection.prepareStatement(query);) {
             // set statement values
             pstmt.setString(1, model.getTitle());
             pstmt.setString(2, model.getSubtitle());
@@ -45,10 +44,10 @@ public class DbService {
 
             // do update
             pstmt.executeUpdate();
-            connection.commit();
+            // connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-    
+
 }
